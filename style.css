@@ -1,0 +1,18 @@
+.main{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content:center;
+    margin: 200px;
+}
+button {
+color: #F9FAF9;
+background-color: #3882F6;
+border: 1px solid #F9FAF9;
+padding:12px 24px;
+border-radius: 10px;
+font-size: 16px;
+margin-top: 12px;
+margin-bottom: 12px;
+cursor:pointer;
+}
