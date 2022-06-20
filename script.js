@@ -1,11 +1,25 @@
-const choices = ["rock", "paper", "scissors"];
+const SELECTION = [
+  {
+    name: "rock",
+    emoji: "✊",
+    beats: "scissors",
+  },
+  {
+    name: "paper",
+    emoji: "✋",
+    beats: "rock",
+  },
+  {
+    name: "scissors",
+    emoji: "✌️",
+    beats: "paper",
+  },
+];
+
 const winners = [];
 
 function game() {
-  for (i = 1; i <= 5; i++) {
-    playRound(i);
-  }
-  document.querySelector("button").textContent="Play again";
+  playRound();
   logWins();
 }
 
@@ -18,56 +32,17 @@ function playRound(round) {
 }
 
 //Player selection
-function playerPlay() {
-  let playerchoice = prompt(
-    "Please enter your choice: (Rock / Paper / Scissors)"
-  );
-  while (playerchoice == null) {
-    playerchoice = prompt(
-      "Please enter your choice: (Rock / Paper / Scissors)"
-    );
-  }
-  playerchoice = playerchoice.toLowerCase();
-  let spellcheck = validateInput(playerchoice);
-  while (spellcheck == false) {
-    playerchoice = prompt(
-      "Please enter your choice: (Rock / Paper / Scissors) \n Spelling needs to be exact!"
-    );
-    while (playerchoice == null) {
-      playerchoice = prompt(
-        "Please enter your choice: (Rock / Paper / Scissors)"
-      );
-    }
-    playerchoice = playerchoice.toLowerCase();
-    spellcheck = validateInput(playerchoice);
-  }
-  return playerchoice;
-}
+function playerPlay() {}
 
-//Computer selection
+// //Computer selection
 function computerPlay() {
-  return choices[Math.floor(Math.random() * choices.length)];
-}
-//console.log(computerPlay());
-
-//checks for correct spelling
-function validateInput(input) {
-  return choices.includes(input);
+  const compPick = Math.floor(Math.random() * SELECTION.length);
+  return SELECTION[compPick];
 }
 
 //Check winner
-function checkWinner(choicePlayer, choiceComputer) {
-  if (choicePlayer === choiceComputer) {
-    return "Draw";
-  } else if (
-    (choicePlayer === "rock" && choiceComputer === "scissors") ||
-    (choicePlayer === "paper" && choiceComputer === "rock") ||
-    (choicePlayer === "scissors" && choiceComputer === "paper")
-  ) {
-    return "Player wins!";
-  } else {
-    return "Computer wins!";
-  }
+function checkWinner(selection, pcSelection) {
+  return selection.beats === pcSelection.name
 }
 
 //Logging winners
@@ -87,6 +62,24 @@ function logRounds(playerSelection, computerSelection, winner, round) {
   console.log("Player chose: ", playerSelection);
   console.log("Computer chose: ", computerSelection);
   console.log(winner);
-  console.log("----------------------")
+  console.log("----------------------");
 }
+
+const selectionButtons = document.querySelectorAll("[data-selection]");
+selectionButtons.forEach((selectionButton) => {
+  selectionButton.addEventListener("click", (e) => {
+    const selectionName = selectionButton.dataset.selection;
+    const selection = SELECTION.find(selection => selection.name === selectionName)
+    makeSelection(selection);
+  });
+});
+
+function makeSelection(selection) {
+  const computerChoice = computerPlay();
+  const youWin = checkWinner(selection, computerChoice);
+  const pcWin = checkWinner(computerChoice, selection);
+  console.log(computerChoice);
+  console.log(selection);
+}
+
 

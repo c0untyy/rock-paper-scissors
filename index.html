@@ -6,16 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="main">
+    <div class="header">
       <h1>Rock Paper Scissors</h1>
-      <button onclick="game()">Start game</button>
-      <p>
-        Game is played in the console. Press Ctrl Shift J to open the console on
-        Windows/Linux.
-      </p>
+      <p>Can you beat the computer?</p>
+    </div>
+    <div class="mid-section">
+      <div class="player-selection">
+        <button class="playerbutton" data-selection="rock">✊</button>
+        <button class="playerbutton" data-selection="paper">✋</button>
+        <button class="playerbutton" data-selection="scissors">✌️</button>
+      </div>
+      
+      <div class="results">
+        <h1 id="winner">Computer</h1>
+        <h1 class="emoji">✊</h1>
+        <h1 class="wins">WINS!</h1>
+      </div>
+      
+      <div class="right-side">
+        <button class="rightemoji">✊</button>
+        <button class="rightemoji">✋</button>
+        <button class="rightemoji">✌️</button>
+      </div>
     </div>
   </body>
-  <script src="script.js"></script>
 </html>
