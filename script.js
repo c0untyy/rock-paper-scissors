@@ -57,12 +57,9 @@ function makeSelection(selection) {
   const pcWin = checkWinner(computerChoice, selection);
   displayResults(youWin, pcWin);
   displayEmojis(selection, computerChoice);
-  console.log(`Player chose ${selection.name}`);
-  console.log(`Computer chose ${computerChoice.name}`);
 }
 
 function displayResults(roundwinner) {
-  console.log(roundwinner);
   if (roundwinner === "player") {
     winner.textContent = "PLAYER";
     winsText.textContent = "WINS!";
