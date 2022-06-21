@@ -20,53 +20,25 @@ const winner = document.getElementById("winner");
 const winsText = document.getElementById("wins");
 const winEmoji = document.getElementById("winEmoji");
 const loseEmoji = document.getElementById("loseEmoji");
+let roundwinner = "";
 
-// function game() {
-//   playRound();
-//   logWins();
-// }
-
-// function playRound(round) {
-//   const playerSelection = playerPlay();
-//   const computerSelection = computerPlay();
-//   const winner = checkWinner(playerSelection, computerSelection);
-//   winners.push(winner);
-//   logRounds(playerSelection, computerSelection, winner, round);
-// }
-
-// //Player selection
-// function playerPlay() {}
-
-// //Computer selection
 function computerPlay() {
   const compPick = Math.floor(Math.random() * SELECTION.length);
   return SELECTION[compPick];
 }
 
-//Check winner
 function checkWinner(selection, pcSelection) {
-  return selection.beats === pcSelection.name;
+  if (selection.beats === pcSelection.name) {
+    roundwinner = "player";
+    return roundwinner;
+  } else if (pcSelection.beats === selection.name) {
+    roundwinner = "computer";
+    return roundwinner;
+  } else if (selection.name === pcSelection.name) {
+    roundwinner = "tie";
+    return roundwinner;
+  }
 }
-
-//Logging winners
-// function logWins() {
-//   let playerWins = winners.filter((item) => item == "Player wins!").length;
-//   let computerWins = winners.filter((item) => item == "Computer wins!").length;
-//   let draw = winners.filter((item) => item == "Draw").length;
-//   console.log("Results: ");
-//   console.log("Player wins:", playerWins);
-//   console.log("Computer wins: ", computerWins);
-//   console.log("Draws: ", draw);
-// }
-
-// //Logging rounds
-// function logRounds(playerSelection, computerSelection, winner, round) {
-//   console.log("Round: ", round);
-//   console.log("Player chose: ", playerSelection);
-//   console.log("Computer chose: ", computerSelection);
-//   console.log(winner);
-//   console.log("----------------------");
-// }
 
 const selectionButtons = document.querySelectorAll("[data-selection]");
 selectionButtons.forEach((selectionButton) => {
@@ -86,17 +58,26 @@ function makeSelection(selection) {
   displayResults(youWin, pcWin);
   displayEmojis(selection, computerChoice);
   console.log(`Player chose ${selection.name}`);
-  console.log(`${computerChoice.name}`);
+  console.log(`Computer chose ${computerChoice.name}`);
 }
 
-
-function displayResults(youWin, pcWin) {
-  if (youWin) {
+function displayResults(roundwinner) {
+  console.log(roundwinner);
+  if (roundwinner === "player") {
     winner.textContent = "PLAYER";
     winsText.textContent = "WINS!";
-  } else if (pcWin) {
+    loseEmoji.classList.remove("winnerEmoji");
+    winEmoji.classList.add("winnerEmoji");
+  } else if (roundwinner === "computer") {
     winner.textContent = "COMPUTER";
     winsText.textContent = "WINS!";
+    winEmoji.classList.remove("winnerEmoji");
+    loseEmoji.classList.add("winnerEmoji");
+  } else if (roundwinner === "tie") {
+    winner.textContent = "TIE";
+    winsText.textContent = "";
+    winEmoji.classList.remove("winnerEmoji");
+    loseEmoji.classList.remove("winnerEmoji");
   }
 }
 
